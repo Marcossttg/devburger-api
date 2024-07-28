@@ -3,10 +3,6 @@ import { Router } from 'express'
 import multer from 'multer'
 
 import multerConfig from './config/multer'
-/* xx */
-// import { v4 } from 'uuid'
-// import User from './app/models/User'
-/* xx */
 
 import ProductController from './app/controllers/ProductController'
 import SessionController from './app/controllers/SessionController'
@@ -21,10 +17,12 @@ const upload = multer(multerConfig)
 const routes = new Router()
 
 routes.post('/users', UserController.store)
-routes.post('/sessions', SessionController.store)
+routes.post('/session', SessionController.store)
 
 routes.post('/products', upload.single('file'), ProductController.store)
 routes.get('/products', ProductController.index)
+
+export default routes
 
 // Adicionando routes.use() com middleware para que todas as rotas abaixo.
 // Quando chamado, recebe o middleware como autenticação.
@@ -42,4 +40,7 @@ routes.get('/products', ProductController.index)
 // routes.put('/orders/:id', OrderController.update)
 // routes.get('/orders', OrderController.index)
 
-export default routes
+/* xx */
+// import { v4 } from 'uuid'
+// import User from './app/models/User'
+/* xx */
