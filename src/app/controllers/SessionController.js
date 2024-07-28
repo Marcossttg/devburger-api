@@ -40,13 +40,13 @@ class SessionController {
     if (!isSamePassword) {
       return userEmailOrPasswordIncorrect()
     }
-
+    // criando validação do usuario com jwt token
     return response.status(201).json({
       id: user.id,
-      email,
       name: user.name,
+      email,
       admin: user.admin,
-      token: jwt.sign({ id: user.id, name: user.name }, authConfig.secret, {
+      token: jwt.sign({ id: user.id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     })
