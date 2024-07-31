@@ -11,7 +11,6 @@ import SessionController from './app/controllers/SessionController'
 import ProductController from './app/controllers/ProductController'
 import CategoryController from './app/controllers/CategoryController'
 import OrderController from './app/controllers/OrderController'
-// import OrderController from './app/controllers/OrderController'
 
 const upload = multer(multerConfig)
 
