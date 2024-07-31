@@ -4,7 +4,7 @@ import Category from '../models/Category'
 
 class ProductController {
   async store(request, response) {
-    const schema = Yup.object({
+    const schema = Yup.object().shape({
       name: Yup.string().required(),
       price: Yup.number().required(),
       category_id: Yup.number().required(),

@@ -9,7 +9,7 @@ import User from '../models/User'
 // criando validação de email e senha com schema.isValid
 class SessionController {
   async store(request, response) {
-    const schema = Yup.object({
+    const schema = Yup.object().shape({
       email: Yup.string().email().required(),
       password: Yup.string().required(),
     })

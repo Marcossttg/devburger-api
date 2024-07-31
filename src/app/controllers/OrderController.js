@@ -5,13 +5,15 @@ import Category from '../models/Category'
 
 class OrderController {
   async store(request, response) {
-    const schema = Yup.object({
-      products: Yup.array().required().of(
-        Yup.object({
-          id: Yup.number().required(),
-          quantity: Yup.number().required(),
-        }),
-      ),
+    const schema = Yup.object().shape({
+      products: Yup.array()
+        .required()
+        .of(
+          Yup.object().shape({
+            id: Yup.number().required(),
+            quantity: Yup.number().required(),
+          }),
+        ),
     })
 
     try {
@@ -21,13 +23,12 @@ class OrderController {
     }
 
     const { products } = request.body
-    console.log('produtos no body', products)
 
-    const productsIds = products.map((product) => product.id)
+    const productsId = products.map((product) => product.id)
 
     const findProducts = await Product.findAll({
       where: {
-        id: productsIds,
+        id: productsId,
       },
       include: [
         {
@@ -37,23 +38,21 @@ class OrderController {
         },
       ],
     })
-    console.log('depois do findAll', findProducts)
 
-    const formattedProducts = findProducts.map(product => {
-      const productIndex = products.findIndex(item => item.id === product.id)
+    const formattedProducts = findProducts.map((product) => {
+      const productIndex = products.findIndex((item) => item.id === product.id)
 
       const newProduct = {
         id: product.id,
         name: product.name,
-        category: product.category.name,
         price: product.price,
+        category: product.category.name,
         url: product.url,
         quantity: products[productIndex].quantity,
       }
+
       return newProduct
     })
-    console.log('formatado produtos', formattedProducts)
-
 
     const order = {
       user: {
@@ -61,11 +60,13 @@ class OrderController {
         name: request.userName,
       },
       products: formattedProducts,
+      status: 'Pedido realizado',
     }
 
-    return response.status(201).json(order)
-  }
+    const orderResponse = await Order.create(order)
 
+    return response.status(201).json(orderResponse)
+  }
 }
 
 export default new OrderController()

@@ -3,7 +3,7 @@ import Category from '../models/Category'
 
 class CategoryController {
   async store(request, response) {
-    const schema = Yup.object({
+    const schema = Yup.object().shape({
       name: Yup.string().required(),
     })
 
