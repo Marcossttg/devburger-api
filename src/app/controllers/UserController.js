@@ -1,7 +1,5 @@
 import * as Yup from 'yup'
-
 import { v4 } from 'uuid'
-
 import User from '../models/User'
 /*
  Padrão MVC nos controles tem este padrão

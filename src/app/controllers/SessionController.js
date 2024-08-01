@@ -1,9 +1,6 @@
 import * as Yup from 'yup'
-
 import jwt from 'jsonwebtoken'
-
 import authConfig from '../../config/auth'
-
 import User from '../models/User'
 
 // criando validação de email e senha com schema.isValid
